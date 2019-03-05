@@ -7,4 +7,6 @@
 #
 # Note that if $XDG_CONFIG_HOME is not defined then $HOME/.config/ is
 # used instead.
-test-val: 4
+
+spotify-client-id: "123456789qwertyuiop"
+spotify-client-secret: "1234567890qwert"
