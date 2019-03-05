@@ -1,0 +1,10 @@
+# slats config file
+
+# This config file is looked for at
+#
+# - repository_base/config.yaml (if running from source)
+# - $XDG_CONFIG_HOME/twitch-game-notify/config.yaml
+#
+# Note that if $XDG_CONFIG_HOME is not defined then $HOME/.config/ is
+# used instead.
+test-val: 4
