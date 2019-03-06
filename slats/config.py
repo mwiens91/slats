@@ -1,7 +1,7 @@
 """Contains functions relating to the configuration file."""
 
 import os
-from typing import Dict
+from typing import Dict, Optional
 import yaml
 from .constants import CONFIG_FILE_NAME, PROJECT_BASE_DIR, PROJECT_CONFIG_HOME
 from .exceptions import ConfigFileNotFound
@@ -37,7 +37,7 @@ def find_config_file() -> str:
     raise ConfigFileNotFound
 
 
-def parse_config_file(config_path: str = None) -> Dict[str, str]:
+def parse_config_file(config_path: Optional[str] = None) -> Dict[str, str]:
     """Find and parse a config file.
 
     Args:
