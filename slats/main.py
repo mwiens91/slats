@@ -2,7 +2,7 @@
 
 from .config import parse_config_file
 from .runtime_args import parse_runtime_args
-from .spotify import get_client
+from .spotify import get_album_uri, get_client
 
 
 def main():
@@ -20,13 +20,7 @@ def main():
     )
 
     # DEBUG
-    artist_uri = "spotify:artist:2WX2uTcsvV5OnS0inACecP"
-
-    results = spotify.artist_albums(artist_uri, album_type="album")
-    albums = results["items"]
-    while results["next"]:
-        results = spotify.next(results)
-        albums.extend(results["items"])
-
-    for album in albums:
-        print(album["name"])
+    album = get_album_uri(
+        client=spotify, album_artist="Arcade Fire", album="Funeral"
+    )
+    print(album)
