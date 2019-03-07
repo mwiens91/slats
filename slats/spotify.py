@@ -2,24 +2,36 @@
 
 from typing import Dict, Optional
 from spotipy import Spotify
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.util import prompt_for_user_token
 
 
-def get_client(client_id: str, client_secret: str) -> Spotify:
+def get_client(
+    username: str, client_id: str, client_secret: str, redirect_uri: str
+) -> Spotify:
     """Returns a spotipy.Spotify object.
 
+    In authenticating a Spotify client, this prompts user for
+    authentication and as a side effect saves a cache in the CWD.
+
+    TODO: save the cache in a sensible location.
+
     Args:
+        username: A Spotify user identifier.
         client_id: A Spotify developer client ID.
         client_secret: A Spotify developer client secret.
+        redirect_uri: A whitelisted URI to redirect to after authenticating.
 
     Returns:
         A spotify.Spotify client.
     """
-    return Spotify(
-        client_credentials_manager=SpotifyClientCredentials(
-            client_id=client_id, client_secret=client_secret
-        )
+    token = prompt_for_user_token(
+        username=username,
+        client_id=client_id,
+        client_secret=client_secret,
+        redirect_uri=redirect_uri,
+        scope="user-library-modify",
     )
+    return Spotify(auth=token)
 
 
 def get_album_uri(

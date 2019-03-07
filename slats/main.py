@@ -15,8 +15,10 @@ def main():
 
     # Initialize Spotify API client
     spotify = get_client(
+        username=config_dict["spotify-username"],
         client_id=config_dict["spotify-client-id"],
         client_secret=config_dict["spotify-client-secret"],
+        redirect_uri=config_dict["spotify-redirect-uri"],
     )
 
     # DEBUG
