@@ -8,7 +8,7 @@
 # Note that if $XDG_CONFIG_HOME is not defined then $HOME/.config/ is
 # used instead.
 
-spotify-username: "myspotifyusername"
+spotify-username: "myspotify_username"
 spotify-client-id: "myspotifydev_clientid"
 spotify-client-secret: "myspotifydev_clientsecret"
 spotify-redirect-uri: "myspotifydev_redirecturi"
