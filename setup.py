@@ -43,5 +43,5 @@ setup(
     packages=["slats"],
     entry_points={"console_scripts": ["slats = slats.main:main"]},
     python_requires=">=3.6",
-    install_requires=[],
+    install_requires=["PyYAML>=5.1b3", "spotipy>=2.4.4"],
 )
