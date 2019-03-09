@@ -19,6 +19,7 @@ def main():
         client_id=config_dict["spotify-client-id"],
         client_secret=config_dict["spotify-client-secret"],
         redirect_uri=config_dict["spotify-redirect-uri"],
+        cache_path=cli_args.cache,
     )
 
     # DEBUG
