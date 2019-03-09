@@ -18,7 +18,7 @@ def parse_runtime_args() -> argparse.Namespace:
     parser.add_argument(
         "--cache",
         default=None,
-        help="explicit path to save user-authenticated Spotify API token info",
+        help="explicit path to save user-authenticated Spotify API token info to",
     )
     parser.add_argument(
         "--config", default=None, help="explicit path to config file"
