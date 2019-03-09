@@ -14,3 +14,6 @@ try:
     PROJECT_CONFIG_HOME = os.path.join(os.environ["XDG_CONFIG_HOME"], "slats")
 except KeyError:
     PROJECT_CONFIG_HOME = os.path.join(os.environ["HOME"], ".config/", "slats")
+
+# Spotify authorization scopes
+SPOTIFY_AUTH_SCOPES = "user-library-modify user-library-read"

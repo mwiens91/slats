@@ -5,7 +5,10 @@ from typing import Dict, Optional
 import webbrowser
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
-from .constants import PROJECT_CONFIG_HOME
+from .constants import (
+    PROJECT_CONFIG_HOME,
+    SPOTIFY_AUTH_SCOPES,
+)
 
 
 def get_client(
@@ -49,7 +52,7 @@ def get_client(
         client_id=client_id,
         client_secret=client_secret,
         redirect_uri=redirect_uri,
-        scope="user-library-modify",
+        scope=SPOTIFY_AUTH_SCOPES,
         cache_path=cache_path,
     )
 
