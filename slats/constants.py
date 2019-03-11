@@ -15,5 +15,8 @@ try:
 except KeyError:
     PROJECT_CONFIG_HOME = os.path.join(os.environ["HOME"], ".config/", "slats")
 
+# Spotify API limit for retreiving user's saved albums
+SPOTIFY_API_LIMIT = 50
+
 # Spotify authorization scopes
 SPOTIFY_AUTH_SCOPES = "user-library-modify user-library-read"

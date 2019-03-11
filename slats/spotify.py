@@ -1,12 +1,13 @@
 """Contains functions for Spotify integration."""
 
 import os
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 import webbrowser
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 from .constants import (
     PROJECT_CONFIG_HOME,
+    SPOTIFY_API_LIMIT,
     SPOTIFY_AUTH_SCOPES,
 )
 
@@ -76,6 +77,40 @@ def get_client(
         token_dict = token_oauth.get_access_token(response_code)
 
     return Spotify(auth=token_dict["access_token"])
+
+
+def get_users_saved_albums(client: Spotify) -> List[str]:
+    """Retrieve the URI for an album
+
+    Args:
+        client: A spotipy Spotify client.
+
+    Returns:
+        A list of album URIs that the user already has saved to their
+        account.
+    """
+    saved_albums = []
+    offset = 0
+
+    # Keep hitting the API until we've gone through all the saved albums
+    while True:
+        # API call
+        response = client.current_user_saved_albums(
+            limit=SPOTIFY_API_LIMIT, offset=offset
+        )
+
+        if not response["items"]:
+            # No more saved albums
+            break
+
+        # Save all the album URIs
+        for item in response["items"]:
+            saved_albums += [item["album"]["uri"]]
+
+        # Get the offset right for next API call
+        offset += SPOTIFY_API_LIMIT
+
+    return saved_albums
 
 
 def get_album_uri(
