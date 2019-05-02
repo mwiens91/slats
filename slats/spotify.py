@@ -159,3 +159,13 @@ def get_album_uri(
     )
 
     return album_dict
+
+
+def save_albums(client: Spotify, album_uris: List[str]):
+    """Save a list of albums to the authenticated user's profile.
+
+    Args:
+        client: A spotipy Spotify client.
+        album_uris: A list of album URIs to save.
+    """
+    client.current_user_saved_albums_add(album_uris)
