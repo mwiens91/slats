@@ -21,9 +21,12 @@ def get_client(
 ) -> Spotify:
     """Returns a spotipy.Spotify object.
 
-    In authenticating a Spotify client, this prompts user for
-    authentication and saves a cache of the user-authenticated Spotify
-    API token info.
+    If there isn't already cached authentication tokens, this prompts
+    the user for authentication by opening up a browser to a Spotify
+    authentication page, requests the user to input the URL the Spotify
+    authentication page redirects you to (the token is embedded in the
+    URL), and saves a cache of the user-authenticated Spotify API
+    tokens.
 
     The file path for the cached token can be explicitly set by passing
     it in as an argument; if no argument is passed in, the path is taken
