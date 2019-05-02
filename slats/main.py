@@ -2,7 +2,12 @@
 
 from .config import parse_config_file
 from .runtime_args import parse_runtime_args
-from .spotify import get_album_uri, get_client, get_users_saved_albums
+from .spotify import (
+    get_album_uri,
+    get_client,
+    get_users_name,
+    get_users_saved_albums,
+)
 
 
 def main():
@@ -25,5 +30,7 @@ def main():
     # DEBUG
     from pprint import pprint
 
-    saved_albums = get_users_saved_albums(client=spotify)
-    pprint(saved_albums)
+    print("Welcome %s!" % get_users_name(spotify))
+
+    # saved_albums = get_users_saved_albums(client=spotify)
+    # pprint(saved_albums)

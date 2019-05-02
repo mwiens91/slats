@@ -82,6 +82,18 @@ def get_client(
     return Spotify(auth=token_dict["access_token"])
 
 
+def get_users_name(client: Spotify) -> str:
+    """Get the authenticated users display name.
+
+    Args:
+        client: A spotipy Spotify client.
+
+    Returns:
+        Returns the users display name.
+    """
+    return client.me()["display_name"]
+
+
 def get_users_saved_albums(client: Spotify) -> List[str]:
     """Retrieve the URI for an album
 
