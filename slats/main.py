@@ -28,10 +28,15 @@ def main():
         sys.exit(1)
 
     # Parse and validate passed in JSON file
-    albums_json = json.load(cli_args.albums_json)
+    try:
+        with open(cli_args.albums_json) as jsonfile:
+            albums = json.load(jsonfile)
+    except FileNotFoundError:
+        print("%s not found" % cli_args.albums_json)
+        sys.exit(1)
 
     try:
-        jsonschema.validate(instance=albums_json, schema=ALBUMS_JSON_SCHEMA)
+        jsonschema.validate(instance=albums, schema=ALBUMS_JSON_SCHEMA)
     except jsonschema.ValidationError:
         print("%s failed to validate against schema" % cli_args.albums_json)
         sys.exit(1)
