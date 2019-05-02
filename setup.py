@@ -29,7 +29,7 @@ setup(
     author_email="mwiens91@gmail.com",
     license='BSD 3-clause "New" or "Revised License"',
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: End Users/Desktop",
         "License :: OSI Approved :: BSD License",
         "Natural Language :: English",
