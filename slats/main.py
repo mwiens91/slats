@@ -1,6 +1,7 @@
 """Contains the main function."""
 
 from .config import parse_config_file
+from .exceptions import ConfigFileNotFound
 from .runtime_args import parse_runtime_args
 from .spotify import (
     get_album_uri,
@@ -16,7 +17,10 @@ def main():
     cli_args = parse_runtime_args()
 
     # Parse config file
-    config_dict = parse_config_file(config_path=cli_args.config)
+    try:
+        config_dict = parse_config_file(config_path=cli_args.config)
+    except ConfigFileNotFound:
+        print("Configuration not found")
 
     # Initialize Spotify API client
     try:
@@ -31,7 +35,7 @@ def main():
         return
 
     # Print a welcome message
-    print("Successfully authenticated %s!" % get_users_name(spotify))
+    print("Successfully authenticated %s" % get_users_name(spotify))
 
     # DEBUG
     from pprint import pprint
