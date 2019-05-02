@@ -73,54 +73,58 @@ def main():
     new_albums = []
     saved_albums = get_users_saved_albums(spotify)
 
-    for album in albums:
-        print(
-            "Attempting to find "
-            + Style.BRIGHT
-            + album["album"]
-            + Style.RESET_ALL
-            + " by "
-            + Style.BRIGHT
-            + album["album_artist"]
-            + Style.RESET_ALL
-        )
-
-        album_result = get_album_uri(
-            spotify, album["album_artist"], album["album"]
-        )
-
-        if album_result is None:
+    try:
+        for album in albums:
             print(
-                Fore.RED
-                + "Failed to find %s by %s"
-                % (album["album"], album["album_artist"])
+                "Attempting to find "
+                + Style.BRIGHT
+                + album["album"]
+                + Style.RESET_ALL
+                + " by "
+                + Style.BRIGHT
+                + album["album_artist"]
                 + Style.RESET_ALL
             )
+
+            album_result = get_album_uri(
+                spotify, album["album_artist"], album["album"]
+            )
+
+            if album_result is None:
+                print(
+                    Fore.RED
+                    + "Failed to find %s by %s"
+                    % (album["album"], album["album_artist"])
+                    + Style.RESET_ALL
+                )
+                print()
+                continue
+
+            print(
+                "Found "
+                + Style.BRIGHT
+                + album_result["album_name"]
+                + Style.RESET_ALL
+                + " by "
+                + Style.BRIGHT
+                + album_result["artist_name"]
+                + Style.RESET_ALL
+            )
+
+            if album_result["album_uri"] in saved_albums:
+                print(
+                    Fore.GREEN
+                    + "%s by %s is already saved! skipping"
+                    % (album_result["album_name"], album_result["artist_name"])
+                    + Style.RESET_ALL
+                )
+            else:
+                new_albums.append(album_result["album_uri"])
+
             print()
-            continue
-
-        print(
-            "Found "
-            + Style.BRIGHT
-            + album_result["album_name"]
-            + Style.RESET_ALL
-            + " by "
-            + Style.BRIGHT
-            + album_result["artist_name"]
-            + Style.RESET_ALL
-        )
-
-        if album_result["album_uri"] in saved_albums:
-            print(
-                Fore.GREEN
-                + "%s by %s is already saved! skipping"
-                % (album_result["album_name"], album_result["artist_name"])
-                + Style.RESET_ALL
-            )
-        else:
-            new_albums.append(album_result["album_uri"])
-
-        print()
+    except KeyboardInterrupt:
+        print(Fore.RED + "Aborting" + Style.RESET_ALL)
+        sys.exit(1)
 
     # Save all albums
     if new_albums:
