@@ -95,7 +95,7 @@ def get_users_name(client: Spotify) -> str:
 
 
 def get_users_saved_albums(client: Spotify) -> List[str]:
-    """Retrieve the URI for an album
+    """Get all of the authenticated users saved albums.
 
     Args:
         client: A spotipy Spotify client.
@@ -131,7 +131,7 @@ def get_users_saved_albums(client: Spotify) -> List[str]:
 def get_album_uri(
     client: Spotify, album_artist: str, album: str
 ) -> Optional[Dict[str, str]]:
-    """Retrieve the URI for an album
+    """Retrieve the URI for an album.
 
     Args:
         client: A spotipy Spotify client.
