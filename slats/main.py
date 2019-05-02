@@ -1,7 +1,10 @@
 """Contains the main function."""
 
+import json
 import sys
+import jsonschema
 from .config import parse_config_file
+from .constants import ALBUMS_JSON_SCHEMA
 from .exceptions import ConfigFileNotFound
 from .runtime_args import parse_runtime_args
 from .spotify import (
@@ -22,6 +25,15 @@ def main():
         config_dict = parse_config_file(config_path=cli_args.config)
     except ConfigFileNotFound:
         print("Configuration not found")
+        sys.exit(1)
+
+    # Parse and validate passed in JSON file
+    albums_json = json.load(cli_args.albums_json)
+
+    try:
+        jsonschema.validate(instance=albums_json, schema=ALBUMS_JSON_SCHEMA)
+    except jsonschema.ValidationError:
+        print("%s failed to validate against schema" % cli_args.albums_json)
         sys.exit(1)
 
     # Initialize Spotify API client

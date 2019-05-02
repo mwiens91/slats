@@ -9,6 +9,18 @@ PROJECT_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Name of config file
 CONFIG_FILE_NAME = "config.yaml"
 
+# Schema for albums JSON
+ALBUMS_JSON_SCHEMA = {
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "album_artist": {"type": "string"},
+            "album": {"type": "string"},
+        },
+    },
+}
+
 # Base of XDG config files
 try:
     PROJECT_CONFIG_HOME = os.path.join(os.environ["XDG_CONFIG_HOME"], "slats")

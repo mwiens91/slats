@@ -16,6 +16,11 @@ def parse_runtime_args() -> argparse.Namespace:
         prog=NAME, description="%(prog)s - " + DESCRIPTION
     )
     parser.add_argument(
+        "--albums-json",
+        required=True,
+        help="path to albums JSON file (see readme for details)",
+    )
+    parser.add_argument(
         "--cache",
         default=None,
         help="explicit path to save user-authenticated Spotify API token info to",

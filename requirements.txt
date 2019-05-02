@@ -1,7 +1,11 @@
+attrs==19.1.0
 certifi==2018.11.29
 chardet==3.0.4
 idna==2.8
+jsonschema==3.0.1
+pyrsistent==0.15.1
 PyYAML==5.1
 requests==2.21.0
+six==1.12.0
 spotipy==2.4.4
 urllib3==1.24.2
