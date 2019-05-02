@@ -77,6 +77,7 @@ def main():
                 "Failed to find %s by %s"
                 % (album["album"], album["album_artist"])
             )
+            print()
             continue
 
         print(
