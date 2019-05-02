@@ -69,8 +69,7 @@ def main():
     )
     print()
 
-    # Build up a list of new albums to save
-    new_albums = []
+    # Save albums
     saved_albums = get_users_saved_albums(spotify)
 
     try:
@@ -119,13 +118,13 @@ def main():
                     + Style.RESET_ALL
                 )
             else:
-                new_albums.append(album_result["album_uri"])
+                # We *could* build up a big list and save all the albums
+                # at once, but if the list of albums is big then this
+                # isn't a good idea. We could be more efficient and save
+                # in chunks, but this is good enough for most purposes.
+                save_albums(spotify, [album_result["album_uri"]])
 
             print()
     except KeyboardInterrupt:
         print(Fore.RED + "Aborting" + Style.RESET_ALL)
         sys.exit(1)
-
-    # Save all albums
-    if new_albums:
-        save_albums(spotify, new_albums)
