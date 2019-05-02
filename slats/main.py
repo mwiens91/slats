@@ -1,5 +1,6 @@
 """Contains the main function."""
 
+import sys
 from .config import parse_config_file
 from .exceptions import ConfigFileNotFound
 from .runtime_args import parse_runtime_args
@@ -21,6 +22,7 @@ def main():
         config_dict = parse_config_file(config_path=cli_args.config)
     except ConfigFileNotFound:
         print("Configuration not found")
+        sys.exit(1)
 
     # Initialize Spotify API client
     try:
@@ -32,7 +34,7 @@ def main():
             cache_path=cli_args.cache,
         )
     except KeyboardInterrupt:
-        return
+        sys.exit(1)
 
     # Print a welcome message
     print("Successfully authenticated %s" % get_users_name(spotify))
