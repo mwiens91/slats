@@ -66,14 +66,13 @@ def get_client(
     if not token_dict:
         # We don't have a cached token OAuth info; open up auth page in
         # a browser and guide user on auth steps
-
-        # TODO: print better messages
-
-        print("GETTING AUTHORIZATION FROM INTERNETS")
+        print("Please authenticate slats with your Spotify account.")
+        print("A Spotify authentication page will now open in your browser.")
+        print()
         webbrowser.open(token_oauth.get_authorize_url())
 
-        print("GIMME URL")
-        redirected_url = input("> ")
+        redirected_url = input("Enter the URL you were redirected to: ")
+        print()
 
         # Parse the response code
         response_code = token_oauth.parse_response_code(redirected_url)

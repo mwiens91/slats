@@ -19,18 +19,22 @@ def main():
     config_dict = parse_config_file(config_path=cli_args.config)
 
     # Initialize Spotify API client
-    spotify = get_client(
-        username=config_dict["spotify-username"],
-        client_id=config_dict["spotify-client-id"],
-        client_secret=config_dict["spotify-client-secret"],
-        redirect_uri=config_dict["spotify-redirect-uri"],
-        cache_path=cli_args.cache,
-    )
+    try:
+        spotify = get_client(
+            username=config_dict["spotify-username"],
+            client_id=config_dict["spotify-client-id"],
+            client_secret=config_dict["spotify-client-secret"],
+            redirect_uri=config_dict["spotify-redirect-uri"],
+            cache_path=cli_args.cache,
+        )
+    except KeyboardInterrupt:
+        return
+
+    # Print a welcome message
+    print("Successfully authenticated %s!" % get_users_name(spotify))
 
     # DEBUG
     from pprint import pprint
-
-    print("Welcome %s!" % get_users_name(spotify))
 
     # saved_albums = get_users_saved_albums(client=spotify)
     # pprint(saved_albums)
