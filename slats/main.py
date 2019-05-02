@@ -2,6 +2,7 @@
 
 import json
 import sys
+from colorama import Fore, Style
 import jsonschema
 from .config import parse_config_file
 from .constants import ALBUMS_JSON_SCHEMA
@@ -25,7 +26,7 @@ def main():
     try:
         config_dict = parse_config_file(config_path=cli_args.config)
     except ConfigFileNotFound:
-        print("Configuration not found")
+        print(Fore.RED + "Configuration not found" + Style.RESET_ALL)
         sys.exit(1)
 
     # Parse and validate passed in JSON file
@@ -33,13 +34,19 @@ def main():
         with open(cli_args.albums_json) as jsonfile:
             albums = json.load(jsonfile)
     except FileNotFoundError:
-        print("%s not found" % cli_args.albums_json)
+        print(
+            Fore.RED + "%s not found" % cli_args.albums_json + Style.RESET_ALL
+        )
         sys.exit(1)
 
     try:
         jsonschema.validate(instance=albums, schema=ALBUMS_JSON_SCHEMA)
     except jsonschema.ValidationError:
-        print("%s failed to validate against schema" % cli_args.albums_json)
+        print(
+            Fore.RED
+            + "%s failed to validate against schema" % cli_args.albums_json
+            + Style.RESET_ALL
+        )
         sys.exit(1)
 
     # Initialize Spotify API client
@@ -55,7 +62,11 @@ def main():
         sys.exit(1)
 
     # Print a welcome message
-    print("Successfully authenticated %s" % get_users_name(spotify))
+    print(
+        Fore.GREEN
+        + "Successfully authenticated %s" % get_users_name(spotify)
+        + Style.RESET_ALL
+    )
     print()
 
     # Build up a list of new albums to save
@@ -64,8 +75,14 @@ def main():
 
     for album in albums:
         print(
-            "Attempting to find %s by %s"
-            % (album["album"], album["album_artist"])
+            "Attempting to find "
+            + Style.BRIGHT
+            + album["album"]
+            + Style.RESET_ALL
+            + " by "
+            + Style.BRIGHT
+            + album["album_artist"]
+            + Style.RESET_ALL
         )
 
         album_result = get_album_uri(
@@ -74,21 +91,31 @@ def main():
 
         if album_result is None:
             print(
-                "Failed to find %s by %s"
+                Fore.RED
+                + "Failed to find %s by %s"
                 % (album["album"], album["album_artist"])
+                + Style.RESET_ALL
             )
             print()
             continue
 
         print(
-            "Found %s by %s"
-            % (album_result["album_name"], album_result["artist_name"])
+            "Found "
+            + Style.BRIGHT
+            + album_result["album_name"]
+            + Style.RESET_ALL
+            + " by "
+            + Style.BRIGHT
+            + album_result["artist_name"]
+            + Style.RESET_ALL
         )
 
         if album_result["album_uri"] in saved_albums:
             print(
-                "%s by %s is already saved! skipping"
+                Fore.GREEN
+                + "%s by %s is already saved! skipping"
                 % (album_result["album_name"], album_result["artist_name"])
+                + Style.RESET_ALL
             )
         else:
             new_albums.append(album_result["album_uri"])
