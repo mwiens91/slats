@@ -12,6 +12,7 @@ from .spotify import (
     get_client,
     get_users_name,
     get_users_saved_albums,
+    save_albums,
 )
 
 
@@ -55,9 +56,44 @@ def main():
 
     # Print a welcome message
     print("Successfully authenticated %s" % get_users_name(spotify))
+    print()
 
-    # DEBUG
-    from pprint import pprint
+    # Build up a list of new albums to save
+    new_albums = []
+    saved_albums = get_users_saved_albums(spotify)
 
-    # saved_albums = get_users_saved_albums(client=spotify)
-    # pprint(saved_albums)
+    for album in albums:
+        print(
+            "Attempting to find %s by %s"
+            % (album["album"], album["album_artist"])
+        )
+
+        album_result = get_album_uri(
+            spotify, album["album_artist"], album["album"]
+        )
+
+        if album_result is None:
+            print(
+                "Failed to find %s by %s"
+                % (album["album"], album["album_artist"])
+            )
+            continue
+
+        print(
+            "Found %s by %s"
+            % (album_result["album_name"], album_result["artist_name"])
+        )
+
+        if album_result["album_uri"] in saved_albums:
+            print(
+                "%s by %s is already saved! skipping"
+                % (album_result["album_name"], album_result["artist_name"])
+            )
+        else:
+            new_albums.append(album_result["album_uri"])
+
+        print()
+
+    # Save all albums
+    if new_albums:
+        save_albums(spotify, new_albums)
