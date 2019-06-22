@@ -51,28 +51,30 @@ slats --albums-json my_json_file.json
 ```
 
 and slats will open up a Spotify authentication page in your favourite
-browser where you then need to give the okay to slats to modify your
-account.  Once you've authenticated, slats will ask you to input the URL
-you were redirected to after authenticating the app.
+browser where you then need to give the okay to let slats add albums to
+your Spotify account. Once you've authenticated, slats will ask you to
+input the URL you were redirected to after authenticating the app in
+your browser.
 
-Then slats will attempt to find each album in the JSON you provided, and
-if it can find the corresponding album on Spotify *and* if you don't
-already have that album saved, it will save the album to your account.
-slats will give you copious coloured output so you can see exactly
-what's going on.
+slats will then attempt to find a corresponding album on Spotify's
+servers for each album in the JSON you provided, and if it can find the
+corresponding album on Spotify *and* if you don't already have that
+album saved, it will save the album to your Spotify account. slats will
+give you copious coloured output so you can see exactly what's going on.
 
 ## What's the catch
 
 ### Spotify song limits
 
 Spotify restricts the number of songs you can have saved to your account
-to 10,000 songs—as of this writing at least (2019-05-02). This means
-that if you want to import a monolithic music library to Spotify, this
-unfortunately will only end up saving a fraction of that library. What's
-worse is that the Spotify API doesn't return any reasonable error for
-when this happens. When I imported my library, getting a 502 error was a
-pretty consistent indication that I was at my song limit. So if your run
-fails with 502s, maybe you've reached your song limit.
+to 10,000 songs (at least as of the date of this writing, 2019-05-02).
+This means that if you want to import a monolithic music library to your
+Spotify account, then unfortunately slats will only end up saving a
+fraction of that library to your account. What's worse is that the
+Spotify API doesn't return any reasonable error for when this happens.
+When I imported my library, getting a 502 error was a pretty consistent
+indication that I was at my song limit. So if your slats run fails with
+502s, you may have reached your Spotify account's song limit.
 
 If you're worried about reaching Spotify's song limit, one good way of
 addressing this is to break up the albums you want to import into chunks
@@ -82,11 +84,10 @@ and run slats on each of those chunks separately.
 
 Spotify isn't transparent about its API's rate limits (number of
 requests per unit time). Because I don't know what the rate limit is, I
-haven't protected against it in the code. So if your run crashes due to
-a rate limit error, wait a bit, and try again (and maybe remove the
-albums that have already been processed in your JSON file so that it
-uses less requests on the next iteration).
-
+haven't protected against it in the code. So if your run fails due to a
+rate limit error, wait a bit, and try again (and maybe remove the albums
+that have already been processed in your JSON file so that it uses less
+requests on the next iteration).
 
 ## Installation
 
