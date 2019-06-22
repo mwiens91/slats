@@ -64,6 +64,21 @@ give you copious coloured output so you can see exactly what's going on.
 
 ## What's the catch
 
+### Misfires
+
+slats searches up albums by providing the album artist and album names
+that you provide to slats as JSON to the Spotify API. If the Spotify API
+returns a non-empty response, it will save album from the top hit of the
+Spotify response to your account (provided the album already isn't
+saved). This can occasionally backfire with obscure albums, where the
+response from the Spotify API might provide a different album than
+intended and slats would then save that album to your account. Again,
+slats will give you tons of output so you can tell what it's doing, so
+monitor its output as necessary to find out when misfires have occurred.
+
+There might be something fancy I can do to protect against this—if you
+have any ideas let me know.
+
 ### Spotify song limits
 
 Spotify restricts the number of songs you can have saved to your account
